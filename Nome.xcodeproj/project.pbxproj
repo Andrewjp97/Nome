@@ -38,6 +38,7 @@
 		AEDAE4FB1B00BC8B00BAECD1 /* NomeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NomeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEDAE5001B00BC8B00BAECD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEDAE5011B00BC8B00BAECD1 /* NomeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NomeTests.swift; sourceTree = "<group>"; };
+		AEDAE50C1B00BCEC00BAECD1 /* Nome.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Nome.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +80,7 @@
 		AEDAE4E51B00BC8B00BAECD1 /* Nome */ = {
 			isa = PBXGroup;
 			children = (
+				AEDAE50C1B00BCEC00BAECD1 /* Nome.entitlements */,
 				AEDAE4E81B00BC8B00BAECD1 /* AppDelegate.swift */,
 				AEDAE4ED1B00BC8B00BAECD1 /* ViewController.swift */,
 				AEDAE4EF1B00BC8B00BAECD1 /* Main.storyboard */,
@@ -125,6 +127,7 @@
 				AEDAE4DF1B00BC8B00BAECD1 /* Sources */,
 				AEDAE4E01B00BC8B00BAECD1 /* Frameworks */,
 				AEDAE4E11B00BC8B00BAECD1 /* Resources */,
+				AEDAE50B1B00BCD400BAECD1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -164,6 +167,12 @@
 				TargetAttributes = {
 					AEDAE4E21B00BC8B00BAECD1 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 3W67YYZ9EF;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					AEDAE4FA1B00BC8B00BAECD1 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -209,6 +218,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AEDAE50B1B00BCD400BAECD1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "git=`sh /etc/profile; which git`\nappBuild=`\"$git\" rev-list --all |wc -l`\nif [ $CONFIGURATION = \"Debug\" ]; then\nbranchName=`\"$git\" rev-parse --abbrev-ref HEAD`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nelse\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nfi\necho \"Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AEDAE4DF1B00BC8B00BAECD1 /* Sources */ = {
@@ -346,9 +371,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Nome/Nome.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Nome/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -356,9 +386,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Nome/Nome.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Nome/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
